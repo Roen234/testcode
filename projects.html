@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Folder Style List</title>
+  <style>
+    /* Add some basic CSS styles for folders and files */
+    .folder {
+      cursor: pointer;
+      padding-left: 20px;
+      list-style-type: none;
+    }
+
+    .folder::before {
+        content: "\f07b"; /* Font Awesome Unicode for the folder icon */
+    font-family: 'Font Awesome 5 Free';
+      margin-right: 5px;
+      display: inline-block;
+    }
+
+    .folder.open::before {
+        content: "\f07c"; /* Font Awesome Unicode for the folder-open icon */
+    font-family: 'Font Awesome 5 Free';
+    }
+
+    .file {
+      cursor: pointer;
+      padding-left: 40px;
+    }
+
+    li {
+      color: black;
+    }
+
+    /* Hide subfolders by default */
+    .folder>ul {
+      display: none;
+    }
+
+    .folder.open>ul {
+      display: block;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    #fileContent {
+      height: 100%;
+    }
+
+    .hello {
+      display: flex;
+      width: 50%;
+      height: 80%; 
+      float: right;
+      align-items: center;
+      border: none;
+    }
+  </style>
+  <link rel="stylesheet" href="staticFiles/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  
+</head>
+
+<body>
+    
+  <ul id="fileSystem">
+    <li class="folder">Folder 1 
+      <ul>
+        <li class="file" data-src="/" data-css="staticFiles/login.css">File 1</li>
+        <li class="file" data-src="file2.html" data-css="style2.css">File 2</li>
+      </ul>
+    </li>
+    <li class="folder">Folder 2
+      <ul>
+        <li class="file" data-src="file3.html" data-css="style3.css">File 3</li>
+        <li class="file" data-src="file4.html" data-css="style4.css">File 4</li>
+      </ul>
+    </li>
+  </ul>
+
+  <div id="fileContent">
+    <!-- Content of the selected file will be displayed here -->
+  </div>
+
+  <script>
+    const fileSystem = document.getElementById("fileSystem");
+    const fileContent = document.getElementById("fileContent");
+
+    // Folder toggling
+    const folders = document.querySelectorAll(".folder");
+    folders.forEach(folder => {
+      folder.addEventListener("click", (e) => {
+        if (e.target === folder) {  // ensure that the event is not from a child element
+          folder.classList.toggle("open");
+        }
+      });
+    });
+
+    // File loading
+   // File loading
+fileSystem.addEventListener("click", (event) => {
+    const target = event.target;
+    if (target.classList.contains("file")) {
+        const src = target.getAttribute("data-src");
+        const cssFile = target.getAttribute("data-css");
+
+        const iframe = document.createElement("iframe");
+        iframe.src = src;
+        iframe.classList.add("hello");
+
+        fileContent.innerHTML = "";
+        fileContent.appendChild(iframe);
+
+        iframe.onload = function() {
+            // Add the CSS link to the iframe's document head
+            const link = iframe.contentDocument.createElement("link");
+            link.rel = "stylesheet";
+            link.href = cssFile;
+            iframe.contentDocument.head.appendChild(link);
+        };
+    }
+});
+
+  </script>
+</body>
+
+</html>
