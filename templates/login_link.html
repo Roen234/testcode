@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="staticFiles/login.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="fade-in">
+   
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.2/css/duotone.css">
+
+    <div class="card">
+      <img src="staticFiles/OIG.png" alt="" width="256" height="256">
+      <h1>Welcome!</h1>
+    <p>Sign up to get started.</p>
+      <div class='g-sign-in-button'>
+        <div class=content-wrapper>
+            <div class='logo-wrapper'>
+               <img src="staticFiles/google.png" alt="">
+            </div>
+            <span class='text-container'>
+          <span><a class="login-link" href="/login">Login with Google</a></span>
+        </span>
+        </div>
+    </div>
+    </div>
+
+    <footer>
+        <p>© 2023 All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        window.onload = function () {
+            document.body.style.background = "linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ),url('data:image/jpeg;base64,{{ loginbg }}')";
+            document.body.style.backgroundRepeat = "no-repeat";
+            document.body.style.backgroundSize = "cover";
+            document.body.style.backgroundAttachment = "fixed";
+            document.body.style.backgroundPosition = "center bottom";
+
+            window.addEventListener("scroll", function () {
+                let offset = window.pageYOffset;
+                document.body.style.backgroundPositionY = offset * -0.3 + "px";
+            });
+        };
+    </script>
+</body>
+
+</html>
